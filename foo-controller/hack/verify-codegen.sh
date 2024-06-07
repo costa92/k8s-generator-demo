@@ -7,9 +7,13 @@ set -o pipefail
 OUTPUT_PKG=generated
 MODULE=foo
 
-SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
+#SCRIPT_ROOT= "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)/hack"
 
-DIFFROOT="${SCRIPT_ROOT}/${OUTPUT_PKG}"
+SCRIPT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+
+echo "SCRIPT_ROOT is ${SCRIPT_ROOT}"
+
+DIFFROOT="${SCRIPT_ROOT}/pkg/${OUTPUT_PKG}"
 TMP_DIFFROOT="${SCRIPT_ROOT}/_tmp/${OUTPUT_PKG}"
 _tmp="${SCRIPT_ROOT}/_tmp"
 
@@ -21,7 +25,9 @@ trap "cleanup" EXIT SIGINT
 cleanup
 
 mkdir -p "${TMP_DIFFROOT}"
-cp -a "${DIFFROOT}"/* "${TMP_DIFFROOT}"
+if [ -d "${DIFFROOT}" ]; then
+	cp -a "${DIFFROOT}"/* "${TMP_DIFFROOT}"
+fi
 
 "${SCRIPT_ROOT}/hack/update-codegen.sh"
 echo "copying generated ${SCRIPT_ROOT}/${MODULE}/${OUTPUT_PKG} to ${DIFFROOT}"
