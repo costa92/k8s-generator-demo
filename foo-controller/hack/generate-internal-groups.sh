@@ -49,6 +49,8 @@ OUTPUT_PKG="$2"
 INT_APIS_PKG="$3"
 EXT_APIS_PKG="$4"
 GROUPS_WITH_VERSIONS="$5"
+
+echo "GENS ${GENS}"
 shift 5
 
 echo "WARNING: $(basename "$0") is deprecated."
@@ -57,7 +59,9 @@ echo
 
 # If verification only is requested, avoid deleting files
 verify_only=""
+echo "$#"
 for ((i = 1; i <= $#; i++)); do
+  echo "for ${i} ${!i}"
 	if [ "${!i}" = --verify-only ]; then verify_only=1; fi
 done
 
@@ -69,6 +73,7 @@ if [ "${GENS}" = "all" ] || grep -qw "all" <<<"${GENS}"; then
 	echo
 	GENS="${ALL}"
 fi
+
 
 (
 	# To support running this script from anywhere, first cd into this directory,
@@ -86,7 +91,7 @@ fi
 	)
 	# Compile all the tools at once - it's slightly faster but also just simpler.
 	# shellcheck disable=2046 # printf word-splitting is intentional
-	GO111MODULE=on go install $(printf "k8s.io/code-generator/cmd/%s " "${BINS[@]}")
+	GO111MODULE=on go install $(printf "k8s.io/code-generator/cmd/%s@v0.29.5 " "${BINS[@]}" )
 )
 
 # Go installs the above commands to get installed in $GOBIN if defined, and $GOPATH/bin otherwise:
@@ -135,8 +140,10 @@ CLIENTSET_NAME="${CLIENTSET_NAME_VERSIONED:-versioned}"
 
 if grep -qw "deepcopy" <<<"${GENS}"; then
 	if [ ! "$verify_only" ]; then
+	  echo go list -f '{{.Dir}}' "${ALL_FQ_APIS[@]}"
 		# Nuke existing files
 		for dir in $(GO111MODULE=on go list -f '{{.Dir}}' "${ALL_FQ_APIS[@]}"); do
+		  echo "dir: ${dir}"
 			pushd "${dir}" >/dev/null
 			git_find -z ':(glob)**'/zz_generated.deepcopy.go | xargs -0 rm -f
 			popd >/dev/null
@@ -144,10 +151,16 @@ if grep -qw "deepcopy" <<<"${GENS}"; then
 	fi
 
 	echo "Generating deepcopy funcs"
+	echo "gobin: ${gobin}"
+	echo "input-dirs: $(codegen::join , "${ALL_FQ_APIS[@]}")"
+  echo "output-package: ${OUTPUT_PKG}"
+  echo 		"$@"
+  echo 11
 	"${gobin}/deepcopy-gen" \
 		--input-dirs "$(codegen::join , "${ALL_FQ_APIS[@]}")" \
 		-O zz_generated.deepcopy \
 		"$@"
+
 fi
 
 if grep -qw "defaulter" <<<"${GENS}"; then
