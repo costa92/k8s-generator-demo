@@ -34,7 +34,7 @@ GROUP_VERSION=foo:v1
 # --output-base    because this script should also be able to run inside the vendor dir of
 #                  k8s.io/kubernetes. The output-base is needed for the generators to output into the vendor dir
 #                  instead of the $GOPATH directly. For normal projects this can be dropped.
-bash "${HACK_ROOT}"/generate-groups.sh "all" \
+bash "${HACK_ROOT}"/generate-groups.sh "client,deepcopy,informer,lister" \
   ${MODULE}/${OUTPUT_PKG} ${MODULE}/${APIS_PKG} \
   ${GROUP_VERSION} \
 	--go-header-file "${HACK_ROOT}"/boilerplate.go.txt \
