@@ -30,12 +30,19 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	InspurV1() inspurv1.InspurV1Interface
+	InspurV1() inspurv1.InspurV1Interface
 }
 
 // Clientset contains the clients for groups.
 type Clientset struct {
 	*discovery.DiscoveryClient
 	inspurV1 *inspurv1.InspurV1Client
+	inspurV1 *inspurv1.InspurV1Client
+}
+
+// InspurV1 retrieves the InspurV1Client
+func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
+	return c.inspurV1
 }
 
 // InspurV1 retrieves the InspurV1Client
@@ -91,6 +98,10 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 	if err != nil {
 		return nil, err
 	}
+	cs.inspurV1, err = inspurv1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	if err != nil {
+		return nil, err
+	}
 
 	cs.DiscoveryClient, err = discovery.NewDiscoveryClientForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
@@ -112,6 +123,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
+	cs.inspurV1 = inspurv1.New(c)
 	cs.inspurV1 = inspurv1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)

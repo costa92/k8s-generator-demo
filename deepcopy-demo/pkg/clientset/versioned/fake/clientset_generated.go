@@ -82,3 +82,8 @@ var (
 func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
 	return &fakeinspurv1.FakeInspurV1{Fake: &c.Fake}
 }
+
+// InspurV1 retrieves the InspurV1Client
+func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
+	return &fakeinspurv1.FakeInspurV1{Fake: &c.Fake}
+}
