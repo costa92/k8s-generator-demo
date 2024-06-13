@@ -19,8 +19,8 @@ package fake
 
 import (
 	clientset "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned"
-	inspurv1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned/typed/apis/v1"
-	fakeinspurv1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned/typed/apis/v1/fake"
+	examplev1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned/typed/apis/v1"
+	fakeexamplev1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned/typed/apis/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -78,12 +78,12 @@ var (
 	_ testing.FakeClient  = &Clientset{}
 )
 
-// InspurV1 retrieves the InspurV1Client
-func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
-	return &fakeinspurv1.FakeInspurV1{Fake: &c.Fake}
+// ExampleV1 retrieves the ExampleV1Client
+func (c *Clientset) ExampleV1() examplev1.ExampleV1Interface {
+	return &fakeexamplev1.FakeExampleV1{Fake: &c.Fake}
 }
 
-// InspurV1 retrieves the InspurV1Client
-func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
-	return &fakeinspurv1.FakeInspurV1{Fake: &c.Fake}
+// ExampleV1 retrieves the ExampleV1Client
+func (c *Clientset) ExampleV1() examplev1.ExampleV1Interface {
+	return &fakeexamplev1.FakeExampleV1{Fake: &c.Fake}
 }

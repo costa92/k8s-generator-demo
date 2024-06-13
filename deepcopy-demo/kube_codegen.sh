@@ -259,6 +259,8 @@ function kube::codegen::gen_openapi() {
     local boilerplate="${KUBE_CODEGEN_ROOT}/hack/boilerplate.go.txt"
     local v="${KUBE_VERBOSE:-0}"
 
+  echo "update_report $update_report"
+
     while [ "$#" -gt 0 ]; do
         case "$1" in
             "--output-dir")
@@ -368,6 +370,8 @@ function kube::codegen::gen_openapi() {
             "${input_pkgs[@]}"
     fi
 
+    echo "report file: ${report}"
+    echo "new report file: ${new_report}"
     touch "${report}" # in case it doesn't exist yet
     if ! diff -u "${report}" "${new_report}"; then
         echo -e "ERROR:"

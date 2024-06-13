@@ -30,7 +30,7 @@ import (
 
 // FakeNodeCaches implements NodeCacheInterface
 type FakeNodeCaches struct {
-	Fake *FakeInspurV1
+	Fake *FakeExampleV1
 	ns   string
 }
 

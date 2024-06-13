@@ -61,13 +61,13 @@ func NewFilteredNodeCacheInformer(client versioned.Interface, namespace string, 
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.InspurV1().NodeCaches(namespace).List(context.TODO(), options)
+				return client.ExampleV1().NodeCaches(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.InspurV1().NodeCaches(namespace).Watch(context.TODO(), options)
+				return client.ExampleV1().NodeCaches(namespace).Watch(context.TODO(), options)
 			},
 		},
 		&apisv1.NodeCache{},

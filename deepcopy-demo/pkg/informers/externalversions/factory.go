@@ -252,9 +252,9 @@ type SharedInformerFactory interface {
 	// client.
 	InformerFor(obj runtime.Object, newFunc internalinterfaces.NewInformerFunc) cache.SharedIndexInformer
 
-	Inspur() apis.Interface
+	Example() apis.Interface
 }
 
-func (f *sharedInformerFactory) Inspur() apis.Interface {
+func (f *sharedInformerFactory) Example() apis.Interface {
 	return apis.New(f, f.namespace, f.tweakListOptions)
 }

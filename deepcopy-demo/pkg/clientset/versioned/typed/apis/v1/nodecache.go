@@ -56,7 +56,7 @@ type nodeCaches struct {
 }
 
 // newNodeCaches returns a NodeCaches
-func newNodeCaches(c *InspurV1Client, namespace string) *nodeCaches {
+func newNodeCaches(c *ExampleV1Client, namespace string) *nodeCaches {
 	return &nodeCaches{
 		client: c.RESTClient(),
 		ns:     namespace,

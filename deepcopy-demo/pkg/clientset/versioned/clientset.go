@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"net/http"
 
-	inspurv1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned/typed/apis/v1"
+	examplev1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/clientset/versioned/typed/apis/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -29,25 +29,25 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	InspurV1() inspurv1.InspurV1Interface
-	InspurV1() inspurv1.InspurV1Interface
+	ExampleV1() examplev1.ExampleV1Interface
+	ExampleV1() examplev1.ExampleV1Interface
 }
 
 // Clientset contains the clients for groups.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	inspurV1 *inspurv1.InspurV1Client
-	inspurV1 *inspurv1.InspurV1Client
+	exampleV1 *examplev1.ExampleV1Client
+	exampleV1 *examplev1.ExampleV1Client
 }
 
-// InspurV1 retrieves the InspurV1Client
-func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
-	return c.inspurV1
+// ExampleV1 retrieves the ExampleV1Client
+func (c *Clientset) ExampleV1() examplev1.ExampleV1Interface {
+	return c.exampleV1
 }
 
-// InspurV1 retrieves the InspurV1Client
-func (c *Clientset) InspurV1() inspurv1.InspurV1Interface {
-	return c.inspurV1
+// ExampleV1 retrieves the ExampleV1Client
+func (c *Clientset) ExampleV1() examplev1.ExampleV1Interface {
+	return c.exampleV1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -94,11 +94,11 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 
 	var cs Clientset
 	var err error
-	cs.inspurV1, err = inspurv1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	cs.exampleV1, err = examplev1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
 	}
-	cs.inspurV1, err = inspurv1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	cs.exampleV1, err = examplev1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -123,8 +123,8 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.inspurV1 = inspurv1.New(c)
-	cs.inspurV1 = inspurv1.New(c)
+	cs.exampleV1 = examplev1.New(c)
+	cs.exampleV1 = examplev1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

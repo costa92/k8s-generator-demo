@@ -18,7 +18,7 @@ limitations under the License.
 package fake
 
 import (
-	inspurv1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/apis/v1"
+	examplev1 "github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/apis/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -30,8 +30,8 @@ var scheme = runtime.NewScheme()
 var codecs = serializer.NewCodecFactory(scheme)
 
 var localSchemeBuilder = runtime.SchemeBuilder{
-	inspurv1.AddToScheme,
-	inspurv1.AddToScheme,
+	examplev1.AddToScheme,
+	examplev1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition
