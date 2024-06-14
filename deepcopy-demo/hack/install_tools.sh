@@ -18,13 +18,11 @@ install::controller-tools() {
 KUBEBUILDER_VERSION="2.3.1"
 # 安装 kubebuilder 工具
 install::kubebuilder() {
-
   # 验证是否安装 kubebuilder
   if command -v kubebuilder > /dev/null; then
     echo "kubebuilder already installed,$(kubebuilder version)"
     return
   fi
-
    mkdir -p "${INSTALL_ROOT_TEP}"
   # go env GOOS -- 获取操作系统类型，例如：linux等
   # go env GOARCH -- 获取系统架构，例如：arm或amd64等
