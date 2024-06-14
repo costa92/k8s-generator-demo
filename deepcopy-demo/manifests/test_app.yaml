@@ -1,0 +1,8 @@
+apiVersion: nodecaches.example.com/v1
+kind: NodeCache
+metadata:
+  name: example-nodecache
+spec:
+  allocatablesize: 100
+  datasets: "dataset1"
+  freesize: 50

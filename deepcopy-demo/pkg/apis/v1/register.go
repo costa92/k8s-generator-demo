@@ -1,21 +1,19 @@
 package v1
 
 import (
+	"github.com/costa92/k8s-generator-demo/deepcopy-demo/pkg/apis"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
 const (
-	// GroupName is the group name used in this package.
-	GroupName = "example.com"
-
 	// GroupVersion is the version of scheduling group
-	GroupVersion = "v1beta1"
+	GroupVersion = "v1"
 )
 
 // SchemeGroupVersion is group version used to register these objects
-var SchemeGroupVersion = schema.GroupVersion{Group: GroupName, Version: GroupVersion}
+var SchemeGroupVersion = schema.GroupVersion{Group: apis.GroupName, Version: GroupVersion}
 
 // Resource takes an unqualified resource and returns a Group qualified GroupResource
 func Resource(resource string) schema.GroupResource {

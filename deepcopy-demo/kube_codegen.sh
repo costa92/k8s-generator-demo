@@ -370,8 +370,6 @@ function kube::codegen::gen_openapi() {
             "${input_pkgs[@]}"
     fi
 
-    echo "report file: ${report}"
-    echo "new report file: ${new_report}"
     touch "${report}" # in case it doesn't exist yet
     if ! diff -u "${report}" "${new_report}"; then
         echo -e "ERROR:"

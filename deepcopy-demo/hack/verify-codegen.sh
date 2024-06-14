@@ -45,5 +45,5 @@ fi
 ## smoke test
 echo "Smoke testing examples by compiling..."
 pushd "${SCRIPT_ROOT}"
-  go build "k8s.io/code-generator/examples/crd/..."
+  go build "${SCRIPT_ROOT}/main.go"
 popd

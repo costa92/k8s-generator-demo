@@ -33,12 +33,21 @@ if [[ -n "${API_KNOWN_VIOLATIONS_DIR:-}" ]]; then
 fi
 
 
+# 判断 generated 目录是否存在，不存在则创建，存在删除其中的文件
+if [ ! -d "${SCRIPT_ROOT}/pkg/generated" ]; then
+    mkdir -p "${SCRIPT_ROOT}/pkg/generated"
+else
+    rm -rf "${SCRIPT_ROOT}/pkg/generated"
+    mkdir -p "${SCRIPT_ROOT}/pkg/generated"
+fi
+
+
 # https://github.com/kubernetes/code-generator/blob/master/examples/hack/update-codegen.sh
 
 # zh: 生成openapi代码
 kube::codegen::gen_openapi \
-    --output-dir "${SCRIPT_ROOT}/pkg/openapi" \
-    --output-pkg "${THIS_PKG}/pkg/openapi" \
+    --output-dir "${SCRIPT_ROOT}/pkg/generated/openapi" \
+    --output-pkg "${THIS_PKG}/pkg/generated/openapi" \
     --report-filename "${report_filename:-"/dev/null"}" \
     ${update_report:+"${update_report}"} \
     --boilerplate "${SCRIPT_DIR}/boilerplate.go.txt" \
@@ -47,7 +56,7 @@ kube::codegen::gen_openapi \
 
 kube::codegen::gen_client \
     --with-watch \
-    --output-dir "${SCRIPT_ROOT}/pkg" \
-    --output-pkg "${THIS_PKG}/pkg" \
+    --output-dir "${SCRIPT_ROOT}/pkg/generated" \
+    --output-pkg "${THIS_PKG}/pkg/generated" \
     --boilerplate "${SCRIPT_DIR}/boilerplate.go.txt" \
     "${SCRIPT_ROOT}/pkg"
