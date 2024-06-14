@@ -259,8 +259,6 @@ function kube::codegen::gen_openapi() {
     local boilerplate="${KUBE_CODEGEN_ROOT}/hack/boilerplate.go.txt"
     local v="${KUBE_VERBOSE:-0}"
 
-  echo "update_report $update_report"
-
     while [ "$#" -gt 0 ]; do
         case "$1" in
             "--output-dir")
