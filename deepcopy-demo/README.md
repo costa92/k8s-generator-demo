@@ -23,10 +23,9 @@ This is a demo of how to use the `k8s.io/code-generator` to generate deep copy f
 
 * 使用type-scaffold工具生成types.go文件
 ```shell
-    type-scaffold --kind <Kind> [flags]
+    ./hack/gen-type.sh
 ```
-
-
+ 在去pkg/apis/v1/types.go文件中修改 NodeCacheSpec 结构体内容
 
 * 使用controller-gen生成deepcopy.go文件    
 
@@ -55,13 +54,24 @@ This is a demo of how to use the `k8s.io/code-generator` to generate deep copy f
     kubectl apply -f manifests/test_apply.yaml
     ```
 
-## 运行代码
+3. kubectl get nodecache
     
     ```sh
-    go run main.go
+    kubectl get nodecache
     ```
+   
+## 运行代码
+    
+```sh
+  go run main.go
+```
 输出结果：
 
 ```sh
 &{{ } {example-nodecache  default  e76fd09c-bc75-4349-89bb-2640d6469852 8835 1 2024-06-14 16:32:46 +0800 CST <nil> <nil> map[] map[kubectl.kubernetes.io/last-applied-configuration:{"apiVersion":"nodecaches.example.com/v1","kind":"NodeCache","metadata":{"annotations":{},"name":"example-nodecache","namespace":"default"},"spec":{"allocatablesize":100,"datasets":"dataset1","freesize":50}}
 ] [] [] [{kubectl-client-side-apply Update nodecaches.example.com/v1 2024-06-14 16:32:46 +0800 CST FieldsV1 {"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/last-applied-configuration":{}}},"f:spec":{".":{},"f:allocatablesize":{},"f:datasets":{},"f:freesize":{}}} }]} {dataset1 50 100} {0 0 0}}
+
+```
+
+## 参考
+[Kubernetes operator（四）controller-tools 篇](https://blog.csdn.net/a1369760658/article/details/135932302)
