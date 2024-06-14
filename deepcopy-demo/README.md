@@ -73,5 +73,11 @@ This is a demo of how to use the `k8s.io/code-generator` to generate deep copy f
 
 ```
 
+## 删除资源
+
+```sh
+k delete -f manifests/test_app.yaml  -f manifests/crd/nodecaches.example.com_nodecaches.yaml 
+```
+
 ## 参考
 [Kubernetes operator（四）controller-tools 篇](https://blog.csdn.net/a1369760658/article/details/135932302)
