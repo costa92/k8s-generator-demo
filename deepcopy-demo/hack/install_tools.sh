@@ -4,6 +4,12 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# zh: 获取项目脚本的目录
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+# 加载 util.sh 脚本
+# shellcheck disable=SC2034
+source "${PROJECT_ROOT}/hack/util.sh"
+
 INSTALL_ROOT_TEP="$(realpath "$(dirname "${BASH_SOURCE[0]}")/../tmp")"
 
 # 安装 controller-tools 工具  controller-gen type-scaffold
