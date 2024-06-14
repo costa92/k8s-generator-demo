@@ -5,8 +5,6 @@ set -o nounset
 set -o pipefail
 
 INSTALL_ROOT_TEP="$(realpath "$(dirname "${BASH_SOURCE[0]}")/../tmp")"
-echo "INSTALL_ROOT_TEP: ${INSTALL_ROOT_TEP}"
-
 
 # 安装 controller-tools 工具  controller-gen type-scaffold
 install::controller-tools() {
@@ -20,6 +18,13 @@ install::controller-tools() {
 KUBEBUILDER_VERSION="2.3.1"
 # 安装 kubebuilder 工具
 install::kubebuilder() {
+
+  # 验证是否安装 kubebuilder
+  if command -v kubebuilder > /dev/null; then
+    echo "kubebuilder already installed,$(kubebuilder version)"
+    return
+  fi
+
    mkdir -p "${INSTALL_ROOT_TEP}"
   # go env GOOS -- 获取操作系统类型，例如：linux等
   # go env GOARCH -- 获取系统架构，例如：arm或amd64等
@@ -32,12 +37,14 @@ install::kubebuilder() {
 
 # 删除 tmp 目录
 cleanup() {
+
   if [ -d "${INSTALL_ROOT_TEP}" ]; then
+    echo "echo del INSTALL_ROOT_TEP ${INSTALL_ROOT_TEP}"
     rm -rf "${INSTALL_ROOT_TEP}"
   fi
 }
 
-trap 'echo del INSTALL_ROOT_TEP ${INSTALL_ROOT_TEP} && cleanup' EXIT SIGINT
+trap 'cleanup' EXIT SIGINT
 
 
 if [[ "$*" =~ install:: ]]; then
