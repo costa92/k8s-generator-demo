@@ -22,7 +22,6 @@ import (
 	clientset "github.com/costa92/k8s-generator-demo/code-generator-demo/pkg/generated/clientset/versioned"
 	appcontrollerv1alpha1 "github.com/costa92/k8s-generator-demo/code-generator-demo/pkg/generated/clientset/versioned/typed/appcontroller/v1alpha1"
 	fakeappcontrollerv1alpha1 "github.com/costa92/k8s-generator-demo/code-generator-demo/pkg/generated/clientset/versioned/typed/appcontroller/v1alpha1/fake"
-	"k8s.io/apimachinery/pkg/api/meta/testrestmapper"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"context"
 	time "time"
 
 	appcontrollerv1alpha1 "github.com/costa92/k8s-generator-demo/code-generator-demo/pkg/apis/appcontroller/v1alpha1"

@@ -19,6 +19,9 @@ limitations under the License.
 package versioned
 
 import (
+	"fmt"
+	"net/http"
+
 	appcontrollerv1alpha1 "github.com/costa92/k8s-generator-demo/code-generator-demo/pkg/generated/clientset/versioned/typed/appcontroller/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"

@@ -14,11 +14,13 @@ type Application struct {
 	Status            ApplicationStatus `json:"status,omitempty"`
 }
 
+// +k8s:deepcopy-gen=true
 type ApplicationSpec struct {
 	DeploymentName string `json:"deploymentName"`
 	Replicas       *int32 `json:"replicas"`
 }
 
+// +k8s:deepcopy-gen=true
 type ApplicationStatus struct {
 	AvailableReplicas int32 `json:"availableReplicas"`
 }
